@@ -1,19 +1,15 @@
 Project Template
 ================
 
-Description
+Predicting tree heights, bole volumes, and plot-level canopy heighs for various species in Moosilauke forest.
 
 Issues
 ------
 
+There are still some trees with dbhs that are missing bole volumes.
+
 Dependencies
 ------------
-
-Other projects/scripts required
-
-### Scripts
-
-* [functions](http://github.com/ghandi9000/functions)
 
 ### Repositories
 
@@ -22,16 +18,16 @@ Other projects/scripts required
 Data
 ----
 
-* [long-bc-derived](http://github.com/ghandi9000/data)
+Final bole calculations are in:
+* [boles.csv](http://github.com/ghandi9000/data)
 
 Directory Layout
 ----------------
 
-* data-prep, data-trans contain scripts to clean and perform manipulations such as transformation between wide/long or constructing size classes from continuous variables.
-* functions.R stores store user-defined functions
-* etc.
+* Scripts used for final analysis are in final directory
+* The rest are raw scripts
 
 References
 ----------
 
-Papers, codes
+Papers in dropbox/shared/papers/boles
