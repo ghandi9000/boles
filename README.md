@@ -19,7 +19,7 @@ Data
 ----
 
 Final bole calculations are in:
-* [boles.csv](http://github.com/ghandi9000/data)
+* [boles.csv](https://github.com/ghandi9000/data/tree/master/data/boles)
 
 Directory Layout
 ----------------
