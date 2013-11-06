@@ -1,57 +1,8 @@
-### Predict heights for trees with DBH and no height,
+## Predict heights for trees with DBH and no height,
 ## Subsets of data used vary across species (differing sample sizes)
+source("~/work/functions/functions-boles.R")
 pp <- read.csv("~/work/data/data/boles/prepped-for-bole-calculation.csv")
 
-make.working.dataset <- function(spp) {
-	trees.from.86 <- which ( 	pp$SPECIES == spp & !is.na(pp$HT86) & !is.na(pp$DBH86) & pp$DBH86 != 0 )
-	trees.from.87 <- which ( 	pp$SPECIES == spp & !is.na(pp$HT87) & !is.na(pp$DBH87) & pp$DBH87 != 0 )
-	trees.from.87 <- trees.from.87[is.na(match(trees.from.87,trees.from.86))]
-	trees.from.98 <- which (	pp$SPECIES == spp & !is.na(pp$HT98) & !is.na(pp$DBH98) & pp$DBH98 != 0 )
-	trees.from.98 <- trees.from.98[is.na(match(trees.from.98,trees.from.86))]
-	trees.from.98 <- trees.from.98[is.na(match(trees.from.98,trees.from.87))]
-	trees.from.10 <- which (	pp$SPECIES == spp & !is.na(pp$HT10) & !is.na(pp$DBH10) & pp$DBH10 != 0 )
-	trees.from.10 <- trees.from.10[is.na(match(trees.from.10,trees.from.86))]
-	trees.from.10 <- trees.from.10[is.na(match(trees.from.10,trees.from.87))]
-	trees.from.10 <- trees.from.10[is.na(match(trees.from.10,trees.from.98))]
-	dbh86 <- pp[trees.from.86,]$DBH86
-	ht86 <- pp[trees.from.86,]$HT86
-	elev86 <- pp[trees.from.86,]$ELEV
-	plots86 <- pp[trees.from.86,]$PLOT
-	canht86 <- pp[trees.from.86,]$CANHT86
-	year86 <- rep(86,length(ht86))
-	data86 <- data.frame(plots86,dbh86,ht86,canht86,elev86,year86)
-	names(data86) <- c("PLOT","DBH","HT","CANHT","ELEV","YEAR")
-
-	dbh87 <- pp[trees.from.87,]$DBH87
-	ht87 <- pp[trees.from.87,]$HT87
-	elev87 <- pp[trees.from.87,]$ELEV
-	plots87 <- pp[trees.from.87,]$PLOT
-	canht87 <- pp[trees.from.87,]$CANHT87
-	year87 <- rep(87,length(ht87))
-	data87 <- data.frame(plots87,dbh87,ht87,canht87,elev87,year87)
-	names(data87) <- c("PLOT","DBH","HT","CANHT","ELEV","YEAR")
-
-	dbh98 <- pp[trees.from.98,]$DBH98
-	ht98 <- pp[trees.from.98,]$HT98
-	elev98 <- pp[trees.from.98,]$ELEV
-	plots98 <- pp[trees.from.98,]$PLOT
-	canht98 <- pp[trees.from.98,]$CANHT98
-	year98 <- rep(98,length(ht98))
-	data98 <- data.frame(plots98,dbh98,ht98,canht98,elev98,year98)
-	names(data98) <- c("PLOT","DBH","HT","CANHT","ELEV","YEAR")
-
-	dbh10 <- pp[trees.from.10,]$DBH10
-	ht10 <- pp[trees.from.10,]$HT10
-	elev10 <- pp[trees.from.10,]$ELEV
-	plots10 <- pp[trees.from.10,]$PLOT
-	canht10 <- pp[trees.from.10,]$CANHT10
-	year10 <- rep(10,length(ht10))
-	data10 <- data.frame(plots10,dbh10,ht10,canht10,elev10,year10)
-	names(data10) <- c("PLOT","DBH","HT","CANHT","ELEV","YEAR")
-
-	dataset <- rbind(data86,data87,data98,data10)
-	dataset <- subset(dataset, PLOT > 3)
-}
 ########################### FAGR ###################################################
 spp <- "FAGR"
 fagr <- make.working.dataset(spp)
@@ -798,66 +749,6 @@ for(i in 1:nrow(pp)) {
 		}
 	}
 }
-windows()
-par(mfrow = c(2,4))
-### 1998
-plot(pp[pp$SPECIES=="ABBA",]$DBH98,pp[pp$SPECIES=="ABBA",]$HT98)
-points(pp[pp$SPECIES=="ABBA"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="ABBA"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="SOAM",]$DBH98,pp[pp$SPECIES=="SOAM",]$HT98)
-points(pp[pp$SPECIES=="SOAM"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="SOAM"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="PIRU",]$DBH98,pp[pp$SPECIES=="PIRU",]$HT98)
-points(pp[pp$SPECIES=="PIRU"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="PIRU"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="BECO",]$DBH98,pp[pp$SPECIES=="BECO",]$HT98)
-points(pp[pp$SPECIES=="BECO"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="BECO"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-### 2010
-plot(pp[pp$SPECIES=="ABBA",]$DBH10,pp[pp$SPECIES=="ABBA",]$HT10)
-points(pp[pp$SPECIES=="ABBA"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="ABBA"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="SOAM",]$DBH10,pp[pp$SPECIES=="SOAM",]$HT10)
-points(pp[pp$SPECIES=="SOAM"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="SOAM"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="PIRU",]$DBH10,pp[pp$SPECIES=="PIRU",]$HT10)
-points(pp[pp$SPECIES=="PIRU"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="PIRU"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="BECO",]$DBH10,pp[pp$SPECIES=="BECO",]$HT10)
-points(pp[pp$SPECIES=="BECO"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="BECO"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-windows()
-par(mfrow=c(2,5))
-### 1998
-plot(pp[pp$SPECIES=="ACSP",]$DBH98,pp[pp$SPECIES=="ACSP",]$HT98)
-points(pp[pp$SPECIES=="ACSP"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="ACSP"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="ACPE",]$DBH98,pp[pp$SPECIES=="ACPE",]$HT98)
-points(pp[pp$SPECIES=="ACPE"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="ACPE"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="FAGR",]$DBH98,pp[pp$SPECIES=="FAGR",]$HT98)
-points(pp[pp$SPECIES=="FAGR"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="FAGR"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="BEAL",]$DBH98,pp[pp$SPECIES=="BEAL",]$HT98)
-points(pp[pp$SPECIES=="BEAL"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="BEAL"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="PRPE",]$DBH98,pp[pp$SPECIES=="PRPE",]$HT98)
-points(pp[pp$SPECIES=="PRPE"&pp$HTPRED98=="1",]$DBH98,pp[pp$SPECIES=="PRPE"&pp$HTPRED98=="1",]$HT98,col="red",lwd=3)
-
-### 2010
-plot(pp[pp$SPECIES=="ACSP",]$DBH10,pp[pp$SPECIES=="ACSP",]$HT10)
-points(pp[pp$SPECIES=="ACSP"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="ACSP"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="ACPE",]$DBH10,pp[pp$SPECIES=="ACPE",]$HT10)
-points(pp[pp$SPECIES=="ACPE"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="ACPE"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="FAGR",]$DBH10,pp[pp$SPECIES=="FAGR",]$HT10)
-points(pp[pp$SPECIES=="FAGR"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="FAGR"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="BEAL",]$DBH10,pp[pp$SPECIES=="BEAL",]$HT10)
-points(pp[pp$SPECIES=="BEAL"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="BEAL"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
-
-plot(pp[pp$SPECIES=="PRPE",]$DBH10,pp[pp$SPECIES=="PRPE",]$HT10)
-points(pp[pp$SPECIES=="PRPE"&pp$HTPRED10=="1",]$DBH10,pp[pp$SPECIES=="PRPE"&pp$HTPRED10=="1",]$HT10,col="red",lwd=3)
 
 ## write data
 write.csv(pp,"~/work/data/data/boles/prepped-for-bole-calculation.csv", row.names=FALSE)
