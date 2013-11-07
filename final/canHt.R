@@ -10,8 +10,7 @@
 
 ## Master data is stored on dropbox
 library(plyr)
-dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
-
+## dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
 yrs <- c(86, 87, 98, 10) ## yrs to calculate canopy heights
 
 canhts <- ddply(dat, .(PPLOT), .fun = function(x) {
@@ -33,5 +32,5 @@ canhts <- ddply(dat, .(PPLOT), .fun = function(x) {
 
 ## name and write data
 names(canhts) <- c("PPLOT", paste0("CANHT",yrs))
-write.csv(canhts, "~/work/boles/canopyHeight/canhts.csv", row.names = FALSE)
+write.csv(canhts, "~/work/data/data/boles/canhts.csv", row.names = FALSE)
 ## tst <- subset(dat, PPLOT == 13 & !is.na(HTTCR86) & STAT86 == "ALIVE" & CPOS88 == "c")

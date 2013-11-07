@@ -1,8 +1,8 @@
 ## Calculate mean canopy DBHs:
 ## Mean canopy DBH is the mean of trees >= canopy height in each plot / year
 library(plyr)
-dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
-canhts <- read.csv("~/work/boles/canopyHeight/canhts.csv")
+## dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
+canhts <- read.csv("~/work/data/data/boles/canhts.csv")
 
 ## calculate canopy dbhs
 yrs <- c(86, 87, 98, 10)
@@ -24,4 +24,4 @@ candbhs <- ddply(dat, .(PPLOT), .fun = function(x) {
 
 ## name and write
 names(candbhs) <- c("PPLOT", paste0("CANDBH",yrs))
-write.csv(candbhs, "~/work/boles/canopyHeight/candbhs.csv", row.names = FALSE)
+write.csv(candbhs, "~/work/data/data/boles/candbhs.csv", row.names = FALSE)

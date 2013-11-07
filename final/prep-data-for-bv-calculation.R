@@ -2,7 +2,7 @@
 ## 1) Add canopy heights
 ## 2) Add canopy dbhs
 library(plyr)
-dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
+## dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
 canhts <- read.csv("~/work/data/data/boles/canhts.csv")
 candbhs <- read.csv("~/work/data/data/boles/candbhs.csv")
 
