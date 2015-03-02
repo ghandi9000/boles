@@ -4,7 +4,8 @@
 ## "~/work/boles/", "~/work/data/", "~/work/functions/"
 
 ## Master data
-dat <- read.csv("C:/Users/noah/Dropbox/Shared/Data/pptreemas10_updatedNov2013.csv")
+source("~/work/ecodatascripts/read/read-moose.R")
+dat <- pp
 
 ## 1) Check to make sure that the data contains the necessary columns, report missing
 ##  if not present
