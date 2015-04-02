@@ -44,6 +44,7 @@ for(i in 1:nrow(pp)) {
 		}
 	}
 }
+
 ################ Use the honer equation for all trees
 for(i in 1:nrow(pp)) {
 	if(!is.na(pp$HT86[[i]]) & !is.na(pp$DBH86[[i]])) {
